@@ -1,0 +1,178 @@
+{
+  "version": "1",
+  "metadata": {
+    "marimo_version": "0.23.1",
+    "script_metadata_hash": null
+  },
+  "cells": [
+    {
+      "id": "Hbol",
+      "code_hash": "47a57e4231c1eddc130509872a503a02",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"are-language-models-injective\">\ud83e\udd16 Are Language Models Injective?</h1>\n<span class=\"paragraph\">This interactive notebook demonstrates the groundbreaking discovery from the paper <strong>\"LANGUAGE MODELS ARE INJECTIVE AND HENCE INVERTIBLE\"</strong> (ICLR 2026).</span>\n<h2 id=\"key-insight-decoder-only-transformers-are-almost-surely-injective-meaning-they-preserve-input-information-in-their-hidden-representations\"><strong>Key Insight</strong>: Decoder-only Transformers are almost-surely injective, meaning they preserve input information in their hidden representations.</h2>\n<span class=\"paragraph\">This notebook uses <strong>Google Gemma-4</strong> to demonstrate these concepts with state-of-the-art technology.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "MJUe",
+      "code_hash": "0c1039b03d25fc511f22941d13dec9ca",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><hr />\n<h2 id=\"part-1-the-core-question-do-different-inputs-create-different-representations\">\ud83d\udd0d Part 1: The Core Question - Do Different Inputs Create Different Representations?</h2>\n<span class=\"paragraph\">Before this paper, the prevailing belief was that LLMs are \"lossy\" - that information get lost as text passes through the network. This paper proves that's not true!</span>\n<span class=\"paragraph\"><strong>The paper proves</strong>: For any two distinct input sequences, they almost surely map to different last-token hidden states.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "vblA",
+      "code_hash": "6f7dac20f0c9d7040add036729275157",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<div style='display: flex;flex: 1;flex-direction: row;justify-content: center;align-items: normal;flex-wrap: nowrap;gap: 0.5rem'><marimo-ui-element object-id='vblA-0' random-id='caf8d600-4807-df71-89e8-65a1a30fd3d4'><marimo-text data-initial-value='&quot;The weather today is&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;Input 1&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;Enter text&quot;' data-kind='&quot;text&quot;' data-full-width='false' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element><marimo-ui-element object-id='vblA-1' random-id='755861de-a5e8-2cc8-8c6d-fa8a13766351'><marimo-text data-initial-value='&quot;The weather tomorrow will be&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;Input 2&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;Enter different text&quot;' data-kind='&quot;text&quot;' data-full-width='false' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element></div>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "bkHC",
+      "code_hash": "fa86e96c938be9890f363176ad4ed19c",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"try-different-inputs\">Try Different Inputs</h3>\n<ul>\n<li>Input 1: <code>The weather today is</code></li>\n<li>Input 2: <code>The weather tomorrow will be</code></li>\n</ul>\n<hr />\n<blockquote>\n<span class=\"paragraph\"><strong>The paper's billion-scale experiments found</strong>: For any two distinct prompts, the distance between their hidden states is typically <strong>0.1 to 10+</strong>, far exceeding the collision threshold of 10^-5 to 10^-8.</span>\n</blockquote>\n<span class=\"paragraph\">This demonstrates the <strong>injectivity</strong> phenomenon - different inputs \u2192 different representations.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "lEQa",
+      "code_hash": "b29e1d94fcae47cff694d520a3e1626b",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><hr />\n<h2 id=\"part-2-the-sipit-algorithm-exact-input-recovery\">\ud83e\uddea Part 2: The SIPIT Algorithm - Exact Input Recovery</h2>\n<span class=\"paragraph\">The paper introduces <strong>SIPIT</strong> (Sequential Inverse Prompt via ITerative updates): the first algorithm providing <strong>provable linear-time guarantees</strong> for exact input reconstruction from hidden states.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "PKri",
+      "code_hash": "d3d4c5b1b53204c893b253ad0c87cc58",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>SIPIT exploits the causal nature of Transformers:</strong></span>\n<ol>\n<li><strong>Causal Decoding</strong>: The hidden state at position <em>t</em> only depends on positions 1, 2, ..., <em>t</em>.</li>\n<li><strong>One-Step Inversion</strong>: For position <em>t</em>, we define <em>F(v; \u03c0)</em> = predicted hidden state if token <em>v</em> followed prefix <em>\u03c0</em>.</li>\n<li><strong>Sequential Reconstruction</strong>:<ul>\n<li>Start with empty prefix</li>\n<li>At each position, find token <em>v</em> such that <em>F(v; \u03c0)</em> matches target hidden state</li>\n<li>Append <em>v</em> to prefix and continue</li>\n</ul>\n</li>\n<li><strong>Gradient-Guided Search</strong>: Uses gradient signals to prioritize likely candidates.</li>\n</ol>\n<hr />\n<span class=\"paragraph\"><strong>Theoretical Guarantee</strong>: Recovers exact input in at most <em>T|V|</em> steps with probability 1.</span>\n<span class=\"paragraph\"><strong>Experimental Performance</strong>: Explores &lt;0.22% of vocabulary on average!</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Xref",
+      "code_hash": "3b7582bd37df2b363328395b399fd6ac",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><hr />\n<h2 id=\"part-3-the-evidence-billion-scale-experiments\">\ud83d\udcca Part 3: The Evidence - Billion-Scale Experiments</h2>\n<span class=\"paragraph\">The paper conducted massive experiments to verify injectivity:</span>\n<span class=\"paragraph\">Testing across multiple distinct inputs shows...</span>\n<span class=\"paragraph\">Verifying no collisions in local neighborhoods...</span>\n<span class=\"paragraph\">Validated across multiple architectures...</span>\n<hr />\n<blockquote>\n<span class=\"paragraph\"><strong>Result: ZERO collisions detected!</strong></span>\n</blockquote>\n<span class=\"paragraph\">The minimum pairwise distances were typically <strong>100-10,000\u00d7 larger</strong> than the collision threshold (10^-5 to 10^-8).</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "SFPL",
+      "code_hash": "93c0bf77a31a229a8fa1ba09e85998b9",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><hr />\n<h2 id=\"part-4-key-findings-from-the-paper\">\ud83c\udfaf Part 4: Key Findings from the Paper</h2>\n<h3 id=\"theoretical-findings\">Theoretical Findings</h3>\n<ul>\n<li>\u2705 <strong>Almost-sure injectivity</strong> at initialization and during training</li>\n<li>\u2705 Based on <strong>real-analyticity</strong> of Transformer components</li>\n<li>\u2705 <strong>Preservation</strong> through gradient-based training</li>\n</ul>\n<h3 id=\"algorithmic-findings-sipit\">Algorithmic Findings (SIPIT)</h3>\n<ul>\n<li>\u2705 <strong>100% exact recovery</strong> accuracy</li>\n<li>\u2705 <strong>Linear-time guarantees</strong> (T|V| worst case)</li>\n<li>\u2705 <strong>Efficient in practice</strong> (&lt;0.22% of vocabulary explored)</li>\n<li>\u2705 <strong>Robust</strong> to quantization and noise</li>\n</ul>\n<h3 id=\"practical-implications\">Practical Implications</h3>\n<ul>\n<li>\u2705 Hidden states = <strong>lossless encodings</strong> of inputs</li>\n<li>\u2705 SIPIT = <strong>first algorithm</strong> with exact reconstruction guarantees</li>\n<li>\u2705 Enables new auditing and debugging approaches</li>\n</ul></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "BYtC",
+      "code_hash": "3377b750395d9bc21b97c4d564073e96",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><hr />\n<h2 id=\"part-5-why-this-matters-the-big-picture\">\ud83c\udf10 Part 5: Why This Matters - The Big Picture</h2>\n<h3 id=\"theoretical-impact\">\ud83e\udde0 <strong>Theoretical Impact</strong></h3>\n<blockquote>\n<span class=\"paragraph\">\"This paper established injectivity as a structural consequence of the architecture and standard training procedures, rather than an asymptotic or idealized property.\"</span>\n</blockquote>\n<ul>\n<li>LLMs are not \"lossy\" as previously assumed</li>\n<li>Hidden states are <strong>lossless encodings</strong> of inputs</li>\n<li>Foundation for <strong>provable interpretability</strong></li>\n</ul>\n<h3 id=\"practical-impact\">\ud83d\udd0d <strong>Practical Impact</strong></h3>\n<ul>\n<li><strong>SIPIT</strong> enables exact input recovery from hidden states</li>\n<li>New <strong>auditing and debugging tools</strong> for LLMs</li>\n<li>Linear-time guarantees for inversion</li>\n</ul>\n<h3 id=\"privacy-ethics-critical-finding\">\ud83d\udee1\ufe0f <strong>Privacy &amp; Ethics - CRITICAL FINDING</strong></h3>\n<blockquote>\n<span class=\"paragraph\">\"Any system storing, caching, or transmitting hidden states is effectively handling verbatim user text.\"</span>\n</blockquote>\n<ul>\n<li><strong>Storing hidden states = Storing user prompts!</strong></li>\n<li><strong>GDPR compliance</strong> requires treating internal representations as personal data</li>\n<li><strong>Privacy policies</strong> need to be updated to reflect this reality</li>\n</ul></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "RGSE",
+      "code_hash": "b8da2f07bd8812668bc6278938cf6e9a",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><hr />\n<h2 id=\"references\">\ud83d\udcda References</h2>\n<span class=\"paragraph\"><strong>Paper</strong>: <a href=\"https://arxiv.org/abs/2510.15511\" rel=\"noopener noreferrer\" target=\"_blank\">LANGUAGE MODELS ARE INJECTIVE AND HENCE INVERTIBLE</a>\n<strong>Authors</strong>: Giorgos Nikolaou, Tommaso Mencattini, Donato Crisostomi, Andrea Santilli, Yannis Panagakis, Emanuele Rodol\u00e0\n<strong>Conference</strong>: ICLR 2026\n<strong>Paper ID</strong>: 2510.15511</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Kclp",
+      "code_hash": "800f0ffcf64e26847e9dfc7d9bf44eb9",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><hr />\n<h2 id=\"interactive-experience\">\ud83e\udde9 Interactive Experience</h2>\n<span class=\"paragraph\">{\"This notebook demonstrates the injectivity phenomenon using Gemma-4 and SIPIT algorithm concepts.\" if gemma_available else \"This notebook demonstrates the injectivity phenomenon using simplified models.\"}</span>\n<span class=\"paragraph\">The key insight: <strong>Language models are injective \u2192 Information is preserved \u2192 Hidden states are reversible.</strong></span>\n<span class=\"paragraph\">This changes how we think about LLMs: from \"black boxes that forget\" to \"lossless encoders that we can invert.\"</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "emfo",
+      "code_hash": "639195cd09a71db6998c6139474ea798",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">\u2705 <strong>Gemma-4 loaded successfully!</strong> We'll use it for demonstrations.</span></span>"
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stderr",
+          "text": "Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n\rLoading weights:   0%|                                                                                                                | 0/1951 [00:00<?, ?it/s]\rLoading weights:  29%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588                                                                       | 567/1951 [00:00<00:00, 5639.58it/s]\rLoading weights:  59%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u258e                                        | 1149/1951 [00:00<00:00, 5736.07it/s]\rLoading weights:  91%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588         | 1776/1951 [00:00<00:00, 5969.63it/s]\rLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 1951/1951 [00:00<00:00, 5912.85it/s]\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "Hstk",
+      "code_hash": null,
+      "outputs": [],
+      "console": []
+    }
+  ]
+}
