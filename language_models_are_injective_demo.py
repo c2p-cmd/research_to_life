@@ -1,67 +1,98 @@
+# /// script
+# requires-python = ">=3.13"
+# dependencies = [
+#   "marimo>=0.23.2",
+#   "numpy==2.4.4",
+#   "pillow==12.2.0",
+#   "torch==2.11.0",
+#   "torchvision",
+#   "accelerate",
+#   "pyarrow",
+#   "transformers==5.6.2",
+#   "pandas==3.0.2",
+#   "altair==6.1.0",
+#   "bitsandbytes>=0.46.1",
+# ]
+# ///
+
 import marimo
 
-__generated_with = "0.23.1"
+__generated_with = "0.23.2"
 app = marimo.App(width="columns")
 
 
 @app.cell(column=0, hide_code=True)
 def _(mo):
-    mo.md(f"""
-    # 🤖 Are Language Models Injective? Can We Invert Them?
+    mo.md(r"""
+    # Are Language Models Injective? Can We Invert Them?
 
-    This interactive notebook demonstrates the groundbreaking discovery from the paper:
+    This interactive notebook explores the core idea behind the paper **“Language Models are Injective and Hence Invertible.”** It demonstrates how token-level hidden representations can be mapped back toward vocabulary embeddings using cosine similarity.
 
-    **"LANGUAGE MODELS ARE INJECTIVE AND HENCE INVERTIBLE"** (ICLR 2026)
+    Rather than treating hidden states as opaque intermediate activations, this notebook treats them as structured representations that may preserve enough information to support inversion or near-inversion at the token level.
 
-    ---
-
-    ## **Key Insight**: Decoder-only Transformers are almost-surely injective, meaning they preserve input information in their hidden representations!
-
-    > **Paper**: [LANGUAGE MODELS ARE INJECTIVE AND HENCE INVERTIBLE](https://arxiv.org/abs/2510.15511)
+    > Paper: [Language Models are Injective and Hence Invertible](https://arxiv.org/abs/2510.15511)
     """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md("""
-    ## 🔍 The Core Question
+    mo.md(r"""
+    ## Motivation
 
-    Before this paper, the prevailing belief was that LLMs are "lossy" - that information gets lost as text passes through the network.
+    A common intuition is that language models gradually “compress away” the input as representations pass through the network. The central claim of the paper challenges that view: under the stated conditions, decoder-only transformers are almost surely injective with respect to the relevant representations.
 
-    **This paper proves**: For any two distinct input sequences, they almost surely map to different last-token hidden states!
-
-    This is called **injectivity** - a fundamental mathematical property with profound implications.
+    This notebook does **not** implement the full SIPIT algorithm. Instead, it provides an interpretable approximation: for a selected hidden layer, each token representation is matched against the model’s input embedding table to find the nearest tokens by cosine similarity.
     """)
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    prompt1 = mo.ui.text(
-        value="The weather today is",
-        label="Text Input",
-        placeholder="Enter a text prompt",
+    mo.md(r"""
+    ## SIPIT in Brief
+
+    The paper introduces **SIPIT** (Sequential Inversion via Prefix-Indexed Transformer dynamics) as a constructive inversion procedure.
+
+    At a high level:
+    1. The transformer is causal, so the hidden state at position \(t\) depends only on the prefix up to \(t\).
+    2. The inversion procedure searches for the token whose induced hidden state best matches the target representation at that position.
+    3. This process is repeated sequentially to recover the input.
+
+    This notebook uses a much simpler baseline: nearest-neighbor retrieval from the embedding table using cosine similarity.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    prompt = mo.ui.text(
+        value="The weather today is pleasant and bright.",
+        label="Input text",
+        placeholder="Enter a prompt to analyze",
         full_width=True,
     )
+
     selected_layer = mo.ui.slider(
         start=0,
         stop=35,
         value=10,
         step=1,
-        label="Extract from hidden layer:",
+        label="Hidden layer",
     )
-    # Create a form with multiple elements
+
     form = (
-        mo.md("""
-        ## Inputs
+        mo.md(
+            """
+    ## Experiment Setup
 
-        {text_input}
+    {text_input}
 
-        {selected_layer}
-    """)
+    {selected_layer}
+    """
+        )
         .batch(
-            text_input=prompt1,
+            text_input=prompt,
             selected_layer=selected_layer,
         )
         .form(show_clear_button=True, bordered=False)
@@ -69,150 +100,118 @@ def _(mo):
     return (form,)
 
 
-@app.cell
-def _(form):
-    form
+@app.cell(hide_code=True)
+def _(mo, model_id):
+    mo.md(rf"""
+    ## Model
+
+    This demo uses [`{model_id}`](https://huggingface.co/{model_id}) and compares hidden-state vectors against the model’s input embedding table. The selected layer controls which internal representation is used for reconstruction.
+    """)
     return
 
 
 @app.cell
-def _(mo, reconstructed_text):
-    mo.vstack(
+def _(
+    layer_idx,
+    mean_cosine_similarity,
+    mo,
+    original_tokens,
+    reconstructed_text,
+    token_recovery,
+):
+    results_md = mo.vstack(
         [
-            mo.vstack(
-                [
-                    mo.md("## Results"),
-                    mo.md("Reconstructed Text:"),
-                    mo.md(f"`{reconstructed_text}`"),
-                ],
+            mo.md("## Results"),
+            mo.md(f"**Selected layer:** `{layer_idx}`"),
+            mo.md("**Original sequence**"),
+            mo.md(f"`{original_tokens}`"),
+            mo.md("**Reconstructed sequence**"),
+            mo.md(f"`{reconstructed_text}`"),
+            mo.md(
+                f"**Mean cosine similarity to nearest embedding:** `{mean_cosine_similarity:.4f}`"
             ),
-            mo.md("""
-    **What does this tell us?**
-
-    - ✅ **Distance > 0.01**: Different inputs → Different representations (**injective** behavior)
-    - ⚠️ **Distance ≈ 0**: Different inputs → Same representation (**collision** - never observed!)
-
-    > **From the paper**: In billion-scale experiments on real LLMs, minimum distances were typically **0.1 to 10+**, far exceeding any reasonable collision threshold.
-        """),
+            mo.md(f"**Exact token recovery rate:** `{token_recovery * 100:.2f}%`"),
         ]
     )
-    return
+    return (results_md,)
 
 
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md("""
-    ## 🧪 The SIPIT Algorithm - Exact Input Recovery
-
-    The paper introduces **SIPIT** (Sequential Inverse Prompt via ITerative updates): an algorithm that provably recovers the exact input from hidden states in linear time!
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.accordion(
-        {
-            "How SIPIT Works": mo.md("""
-        **SIPIT exploits the causal nature of Transformers:**
-
-        1. **Causal Decoding**: The hidden state at position *t* only depends on positions 1, 2, ..., *t*.
-
-        2. **One-Step Inversion**: For position *t*, define *F(v; π)* = predicted hidden state if token *v* followed prefix *π*.
-
-        3. **Sequential Reconstruction**: 
-           - Start with empty prefix
-           - At each position, find token *v* such that *F(v; π)* matches target hidden state
-           - Append *v* to prefix and continue
-
-        4. **Gradient-Guided Search**: Uses gradient signals to prioritize likely candidates.
-
-        ---
-
-        **Theoretical Guarantee**: Recovers exact input in at most *T|V|* steps with probability 1.
-
-        **Experimental Performance**: Explores <0.22% of vocabulary on average!
-        """),
-            "Why SIPIT Matters": mo.md("""
-        - ✅ **First algorithm** with exact reconstruction guarantees
-        - ✅ **100% exact recovery** accuracy
-        - ✅ **Training-free** and efficient
-        - ✅ Enables new auditing and debugging approaches
-        - ✅ **Proves** hidden states aren't "lossy" - they preserve all information
-        """),
-        }
+@app.cell
+def _(form, mo, results_md):
+    mo.hstack(
+        [
+            form,
+            results_md,
+        ],
+        align="start",
+        justify="space-between",
     )
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md("""
-    ---
+    mo.md(r"""
+    ## Interpretation
 
-    ## 🌐 Part 5: Why This Matters - The Big Picture
+    This reconstruction is a nearest-neighbor approximation in embedding space, not a proof of exact inversion by itself. Strong recovery at early or intermediate layers suggests that token identity remains highly recoverable from hidden states, while degradation across layers can reveal where representations become more contextual or abstract.
 
-    ### 🧠 **Theoretical Impact**
-
-    > "This paper established injectivity as a structural consequence of the architecture and standard training procedures."
-
-    - LLMs are not "lossy" as previously assumed
-    - Hidden states are **lossless encodings** of inputs
-    - Foundation for **provable interpretability**
-
-    ### 🔍 **Practical Impact**
-
-    - **SIPIT** enables exact input recovery from hidden states
-    - New **auditing and debugging tools** for LLMs
-    - Linear-time guarantees for inversion
-
-    ### 🛡️ **Privacy & Ethics - CRITICAL FINDING**
-
-    > "Any system storing, caching, or transmitting hidden states is effectively handling verbatim user text."
-
-    - **Storing hidden states = Storing user prompts!**
-    - **GDPR compliance** requires treating internal representations as personal data
-    - **Privacy policies** need to be updated to reflect this reality
+    The exact inversion result in the paper is stronger: it concerns injectivity of the model mapping and motivates dedicated inversion procedures such as SIPIT rather than simple nearest-neighbor lookup.
     """)
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
+def _(chart, mo):
+    mo.ui.altair_chart(
+        chart.properties(width=600, height=400),
+        label="Top-10 nearest tokens for each hidden-state position",
+    )
+    return
+
+
+@app.cell(hide_code=True)
 def _(mo):
-    mo.md("""
-    ---
+    mo.md(r"""
+    ## Why This Matters
 
-    ## 🎓 Key Takeaway
+    If hidden states retain enough information to reconstruct the original input, then they should not be treated as harmless intermediate artifacts. This has implications for interpretability, model auditing, and privacy.
 
-    **Language models are injective → Information is preserved → Hidden states are reversible.**
-
-    This changes how we think about LLMs: from "black boxes that forget" to "lossless encoders that we can invert."
-
-    The SIPIT algorithm demonstrates that this isn't just theory — it's **practical and works at scale**!
+    In practical terms, systems that store or transmit hidden states may be storing information that is much closer to the original prompt than many practitioners assume.
     """)
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
-    mo.md("""
-    ---
+    mo.md(r"""
+    ## Notes and Limitations
 
-    ## 📚 References
+    - This notebook uses embedding-space nearest neighbors, not the full inversion algorithm from the paper.
+    - Reconstruction quality depends heavily on the selected layer.
+    - Cosine similarity is a useful proxy for token alignment, but it is not equivalent to exact invertibility.
+    - Chat templates, tokenizer behavior, and special tokens can affect the recovered sequence.
+    """)
+    return
 
-    **Paper**: [LANGUAGE MODELS ARE INJECTIVE AND HENCE INVERTIBLE](https://arxiv.org/abs/2510.15511)
-    **Authors**: Giorgos Nikolaou, Tommaso Mencattini, Donato Crisostomi, Andrea Santilli, Yannis Panagakis, Emanuele Rodolà
-    **Conference**: ICLR 2026
-    **Paper ID**: 2510.15511
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Reference
+
+    **Paper:** *Language Models are Injective and Hence Invertible*
+    **Conference:** ICLR 2026
+    **arXiv:** [2510.15511](https://arxiv.org/abs/2510.15511)
     """)
     return
 
 
 @app.cell(column=1)
 def _():
-    import sys
     import os
-    from transformers import AutoProcessor, AutoModelForCausalLM
+    import sys
+    from transformers import AutoModelForCausalLM, AutoProcessor
 
     return AutoModelForCausalLM, AutoProcessor, os, sys
 
@@ -220,107 +219,127 @@ def _():
 @app.cell
 def _(os, sys):
     import marimo as mo
-    import numpy as np
+    import pandas as pd
+    import altair as alt
     import torch
-    import torch.nn as nn
     import torch.nn.functional as F
-    from typing import List, Tuple
 
-    # Add current directory to path
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    return F, mo, torch
+    return F, alt, mo, pd, torch
 
 
 @app.cell
-def _(AutoModelForCausalLM, AutoProcessor, torch):
+def _(AutoModelForCausalLM, AutoProcessor):
+    model_id = "unsloth/gemma-4-E2B-it-unsloth-bnb-4bit"
     processor = AutoProcessor.from_pretrained(
-        "google/gemma-4-E2B-it",
-        dtype=torch.float16,
+        model_id,
+        dtype="auto",
         device_map="cpu",
     )
+
     model = AutoModelForCausalLM.from_pretrained(
-        "google/gemma-4-E2B-it",
-        dtype=torch.float16,
+        model_id,
+        dtype="auto",
         device_map="cpu",
     )
-    model.eval()
-    return model, processor
+    return model, model_id, processor
 
 
-@app.cell
-def _(model, processor, torch):
-    @torch.no_grad()
-    def generate_text(text_content: str):
-        # Prompt
-        messages = [
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": text_content},
-        ]
-
-        # Process input
-        text = processor.apply_chat_template(
-            messages,
-            tokenize=False,
-            add_generation_prompt=True,
-            enable_thinking=False,
-            return_tensors="pt",
-        )
-        inputs = processor(text=text, return_tensors="pt").to(model.device)
-        input_len = inputs["input_ids"].shape[-1]
-
-        # Generate output
-        outputs = model(**inputs, max_new_tokens=1024, output_hidden_states=True)
-        return outputs.hidden_states
-
+@app.cell(hide_code=True)
+def _():
+    # mo.vstack([mo.md("### Model Architecture"), model.eval()])
     return
 
 
 @app.cell
 def _(F, form, model, processor, torch):
-    text_content, layer_idx = form.value.values()
+    if form.value is None:
+        text_content = "The weather today is pleasant and bright."
+        layer_idx = 10
+    else:
+        text_content, layer_idx = form.value.values()
 
-    # Process input
+    model.eval()
+
     inputs = processor(text=text_content, return_tensors="pt").to(model.device)
-    input_len = inputs["input_ids"].shape[-1]
 
-    # Generate output
     with torch.no_grad():
-        outputs = model(**inputs, max_new_tokens=1024, output_hidden_states=True)
-        hidden_states = outputs.hidden_states
+        outputs = model(**inputs, output_hidden_states=True)
 
-    layer_hidden = hidden_states[layer_idx]
+    hidden_states = outputs.hidden_states
+    layer_hidden = hidden_states[layer_idx]  # (batch, seq_len, hidden_dim)
 
-    reconstructed_tokens = []
-    similarities_all = []
-    top10_tokens_all = []
-    top10_scores_all = []
+    embeddings = model.get_input_embeddings().weight
+    embeddings_norm = F.normalize(embeddings, dim=-1)
 
-    for i, hidden_vector in enumerate(layer_hidden[0]):
-        hidden_norm = F.normalize(hidden_vector.unsqueeze(0), dim=-1)
-        embeddings = model.get_input_embeddings().weight
-        embeddings_norm = F.normalize(embeddings, dim=-1)
+    token_hidden = layer_hidden[0]  # (seq_len, hidden_dim)
+    token_hidden_norm = F.normalize(token_hidden, dim=-1)
 
-        # cosine similarity
-        similarities = (hidden_norm @ embeddings_norm.T).squeeze()
-        top10_ids = similarities.topk(10).indices
-        top10_tokens = [processor.decode([id.item()]) for id in top10_ids]
-        top10_scores = similarities[top10_ids].tolist()
+    all_similarities = token_hidden_norm @ embeddings_norm.T  # (seq_len, vocab_size)
+    closest_ids = all_similarities.argmax(dim=-1)
+    reconstructed_text = processor.decode(
+        closest_ids, skip_special_tokens=False
+    ).strip()
 
-        similarities_all.append(similarities)
-        top10_tokens_all.append(top10_tokens)
-        top10_scores_all.append(top10_scores)
+    top10 = all_similarities.topk(10, dim=-1)
 
-        closest_token_id = torch.argmax(similarities).item()
-        closest_token = processor.decode([closest_token_id]).strip()
-        reconstructed_tokens.append(closest_token)
+    rec_embeds = embeddings[closest_ids].to(token_hidden.device)
+    mean_cosine_similarity = (
+        F.cosine_similarity(rec_embeds, token_hidden, dim=-1).mean().item()
+    )
 
-    reconstructed_text = " ".join(reconstructed_tokens)
-    return (reconstructed_text,)
+    original_ids = inputs["input_ids"][0]
+    compare_len = min(len(original_ids), len(closest_ids))
+    token_recovery = (
+        (closest_ids[:compare_len] == original_ids[:compare_len]).float().mean().item()
+        if compare_len > 0
+        else 0.0
+    )
+
+    original_tokens = processor.decode(original_ids, skip_special_tokens=False)
+    return (
+        layer_idx,
+        mean_cosine_similarity,
+        original_tokens,
+        reconstructed_text,
+        text_content,
+        token_recovery,
+        top10,
+    )
 
 
 @app.cell
-def _():
-    return
+def _(alt, pd, processor, text_content, top10):
+    original_words = text_content.split()
+    seq_len = top10.values.shape[0]
+
+    _data = []
+    for _i in range(seq_len):
+        for j in range(10):
+            _data.append(
+                {
+                    "Position": _i,
+                    "Original Text": (
+                        text_content.split(" ")[_i]
+                        if _i < len(text_content.split(" "))
+                        else ""
+                    ),
+                    "Token Text": processor.decode(top10.indices[_i, j].item()).strip(),
+                    "Score": top10.values[_i, j].item(),
+                }
+            )
+    df = pd.DataFrame(_data).sort_values("Position", ascending=True)
+    chart = (
+        alt.Chart(df)
+        .mark_bar()
+        .encode(
+            x="Score",
+            y="Original Text",
+            color="Score",
+            tooltip=["Position", "Token Text", "Score"],
+        )
+    )
+    return (chart,)
 
 
 if __name__ == "__main__":
