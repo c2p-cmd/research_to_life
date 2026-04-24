@@ -46,3 +46,4 @@ uv run marimo edit language_models_are_injective_demo.py
 - Foundation for provable interpretability
 
 ![thumbnail](./thumbnail.png)
+![top 10 tokens](./top_10_tokens.png)
