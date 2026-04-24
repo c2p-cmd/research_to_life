@@ -1,6 +1,6 @@
 # Language Models Are Injective - Interactive Demonstration
 
-[![Open in molab](https://marimo.io/molab-shield.svg)](https://github.com/c2p-cmd/research_to_life/blob/master/language_models_are_injective_demo.py)
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/c2p-cmd/research_to_life/blob/master/language_models_are_injective_demo.py)
 
 This repository contains interactive marimo notebooks demonstrating the paper:
 
