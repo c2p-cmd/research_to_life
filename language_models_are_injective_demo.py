@@ -137,15 +137,14 @@ def _(
 
 
 @app.cell
-def _(form, mo, results_md):
-    mo.hstack(
-        [
-            form,
-            results_md,
-        ],
-        align="start",
-        justify="space-between",
-    )
+def _(form):
+    form
+    return
+
+
+@app.cell
+def _(results_md):
+    results_md
     return
 
 
@@ -229,8 +228,13 @@ def _(os, sys):
 
 
 @app.cell
-def _(AutoModelForCausalLM, AutoProcessor):
-    model_id = "unsloth/gemma-4-E2B-it-unsloth-bnb-4bit"
+def _():
+    model_id = "google/gemma-4-E2B-it"
+    return (model_id,)
+
+
+@app.cell
+def _(AutoModelForCausalLM, AutoProcessor, model_id):
     processor = AutoProcessor.from_pretrained(
         model_id,
         dtype="auto",
@@ -242,13 +246,7 @@ def _(AutoModelForCausalLM, AutoProcessor):
         dtype="auto",
         device_map="cpu",
     )
-    return model, model_id, processor
-
-
-@app.cell(hide_code=True)
-def _():
-    # mo.vstack([mo.md("### Model Architecture"), model.eval()])
-    return
+    return model, processor
 
 
 @app.cell

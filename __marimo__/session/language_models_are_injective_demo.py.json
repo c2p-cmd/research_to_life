@@ -62,10 +62,10 @@
       "code_hash": "4935962d3c002f003cc77cacae9c7178",
       "outputs": [
         {
-          "type": "error",
-          "ename": "exception",
-          "evalue": "An ancestor raised an exception (KeyboardInterrupt): ",
-          "traceback": null
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"model\">Model</h2>\n<span class=\"paragraph\">This demo uses <a href=\"https://huggingface.co/google/gemma-4-E2B-it\" rel=\"noopener noreferrer\" target=\"_blank\"><code>google/gemma-4-E2B-it</code></a> and compares hidden-state vectors against the model\u2019s input embedding table. The selected layer controls which internal representation is used for reconstruction.</span></span>"
+          }
         }
       ],
       "console": []
@@ -75,29 +75,42 @@
       "code_hash": "9bd1b2e5d6bb155dadc365a86159db04",
       "outputs": [
         {
-          "type": "error",
-          "ename": "exception",
-          "evalue": "An ancestor raised an exception (KeyboardInterrupt): ",
-          "traceback": null
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
         }
       ],
       "console": []
     },
     {
       "id": "Xref",
-      "code_hash": "e7b65840c82fdbce402e43888dc0ce5f",
+      "code_hash": "3fcdb73d36d54f2cc22d0f68e6b6e182",
       "outputs": [
         {
-          "type": "error",
-          "ename": "exception",
-          "evalue": "An ancestor raised an exception (KeyboardInterrupt): ",
-          "traceback": null
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='bkHC-8' random-id='ab0e3f7d-c2db-bc2b-76e2-668fc0665889'><marimo-form data-initial-value='null' data-label='null' data-element-id='&quot;bkHC-7&quot;' data-loading='false' data-bordered='false' data-submit-button-label='&quot;Submit&quot;' data-submit-button-disabled='false' data-clear-on-submit='false' data-show-clear-button='true' data-clear-button-label='&quot;Clear&quot;' data-should-validate='false'><marimo-ui-element object-id='bkHC-7' random-id='7f540d79-793b-193b-767d-1f2ed6f114b5'><marimo-dict data-initial-value='{&quot;text_input&quot;:&quot;The weather today is pleasant and bright.&quot;,&quot;selected_layer&quot;:10}' data-label='null' data-element-ids='{&quot;bkHC-5&quot;:&quot;text_input&quot;,&quot;bkHC-6&quot;:&quot;selected_layer&quot;}'><span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"experiment-setup\">Experiment Setup</h2>\n<span class=\"paragraph\"><marimo-ui-element object-id='bkHC-5' random-id='0f0b0c0a-ab69-d450-2c9a-e23109457145'><marimo-text data-initial-value='&quot;The weather today is pleasant and bright.&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;Input text&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;Enter a prompt to analyze&quot;' data-kind='&quot;text&quot;' data-full-width='true' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element></span>\n<span class=\"paragraph\"><marimo-ui-element object-id='bkHC-6' random-id='2a9e8b3b-07f3-76a6-2af6-f3090550f211'><marimo-slider data-initial-value='10' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;Hidden layer&lt;/span&gt;&lt;/span&gt;&quot;' data-start='0' data-stop='35' data-step='1' data-steps='[]' data-debounce='false' data-disabled='false' data-orientation='&quot;horizontal&quot;' data-show-value='false' data-include-input='false' data-full-width='false'></marimo-slider></marimo-ui-element></span></span></marimo-dict></marimo-ui-element></marimo-form></marimo-ui-element>"
+          }
         }
       ],
       "console": []
     },
     {
       "id": "SFPL",
+      "code_hash": "7b943a23c5f77f51f09450a115e797a4",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<div style='display: flex;flex: 1;flex-direction: column;justify-content: flex-start;align-items: normal;flex-wrap: nowrap;gap: 0.5rem'><span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"results\">Results</h2></span><span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Selected layer:</strong> <code>0</code></span></span><span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Original sequence</strong></span></span><span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><code>The weather today is pleasant and bright.</code></span></span><span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Reconstructed sequence</strong></span></span><span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><code>The weather today is pleasant and bright.</code></span></span><span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Mean cosine similarity to nearest embedding:</strong> <code>1.0000</code></span></span><span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Exact token recovery rate:</strong> <code>100.00%</code></span></span></div>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "BYtC",
       "code_hash": "3450f59223935d41d8f87b5ce2cd3435",
       "outputs": [
         {
@@ -110,20 +123,13 @@
       "console": []
     },
     {
-      "id": "BYtC",
+      "id": "RGSE",
       "code_hash": "e1d95e3d1118086d5700bba8fdadc0cf",
-      "outputs": [
-        {
-          "type": "error",
-          "ename": "exception",
-          "evalue": "An ancestor raised an exception (KeyboardInterrupt): ",
-          "traceback": null
-        }
-      ],
+      "outputs": [],
       "console": []
     },
     {
-      "id": "RGSE",
+      "id": "Kclp",
       "code_hash": "92cd3fb4df85d7f859d54ad95d3925d4",
       "outputs": [
         {
@@ -136,7 +142,7 @@
       "console": []
     },
     {
-      "id": "Kclp",
+      "id": "emfo",
       "code_hash": "7b2069df2d053c8e87681fcd2b665422",
       "outputs": [
         {
@@ -149,7 +155,7 @@
       "console": []
     },
     {
-      "id": "emfo",
+      "id": "Hstk",
       "code_hash": "061e117fdd1e7530fc840bf916be536b",
       "outputs": [
         {
@@ -162,7 +168,7 @@
       "console": []
     },
     {
-      "id": "Hstk",
+      "id": "nWHF",
       "code_hash": "6950e455afeaf7e86fc5c33af4293a13",
       "outputs": [
         {
@@ -175,7 +181,7 @@
       "console": []
     },
     {
-      "id": "nWHF",
+      "id": "iLit",
       "code_hash": "b1a18297bb4953cafbfad0d4d3a063e6",
       "outputs": [
         {
@@ -188,66 +194,60 @@
       "console": []
     },
     {
-      "id": "iLit",
-      "code_hash": "5d5bbae9a8c413d2ae1d86ba51037464",
-      "outputs": [
-        {
-          "type": "error",
-          "ename": "interruption",
-          "evalue": "This cell was interrupted and needs to be re-run",
-          "traceback": []
-        }
-      ],
-      "console": [
-        {
-          "type": "stream",
-          "name": "stderr",
-          "text": "\rFetching 3 files:   0%|                                                | 0/3 [00:00<?, ?it/s]\rFetching 3 files:   0%|                                                | 0/3 [01:30<?, ?it/s]\nCancellation requested; stopping current tasks.\n",
-          "mimetype": "text/plain"
-        },
-        {
-          "type": "stream",
-          "name": "stderr",
-          "text": "<span class=\"codehilite\"><div class=\"highlight\"><pre><span></span><span class=\"gt\">Traceback (most recent call last):</span>\n  File <span class=\"nb\">&quot;/var/folders/r8/wfzbzqkx22z5qjdyjqnmsf740000gn/T/marimo_4994/__marimo__cell_iLit_.py&quot;</span>, line <span class=\"m\">8</span>, in <span class=\"n\">&lt;module&gt;</span>\n<span class=\"w\">    </span><span class=\"n\">model</span> <span class=\"o\">=</span> <span class=\"n\">AutoModelForCausalLM</span><span class=\"o\">.</span><span class=\"n\">from_pretrained</span><span class=\"p\">(</span>\n<span class=\"w\">    </span>    <span class=\"n\">model_id</span><span class=\"p\">,</span>\n<span class=\"w\">    </span>    <span class=\"n\">dtype</span><span class=\"o\">=</span><span class=\"s2\">&quot;auto&quot;</span><span class=\"p\">,</span>\n<span class=\"w\">    </span>    <span class=\"n\">device_map</span><span class=\"o\">=</span><span class=\"s2\">&quot;cpu&quot;</span><span class=\"p\">,</span>\n<span class=\"w\">    </span><span class=\"p\">)</span>\n  File <span class=\"nb\">&quot;/Users/captain-mac/.cache/uv/archive-v0/OKy6OL97fRGS6w9l56TIe/lib/python3.13/site-packages/transformers/models/auto/auto_factory.py&quot;</span>, line <span class=\"m\">394</span>, in <span class=\"n\">from_pretrained</span>\n<span class=\"w\">    </span><span class=\"k\">return</span> <span class=\"n\">model_class</span><span class=\"o\">.</span><span class=\"n\">from_pretrained</span><span class=\"p\">(</span>\n<span class=\"w\">           </span><span class=\"pm\">~~~~~~~~~~~~~~~~~~~~~~~~~~~^</span>\n<span class=\"w\">    </span>    <span class=\"n\">pretrained_model_name_or_path</span><span class=\"p\">,</span> <span class=\"o\">*</span><span class=\"n\">model_args</span><span class=\"p\">,</span> <span class=\"n\">config</span><span class=\"o\">=</span><span class=\"n\">config</span><span class=\"p\">,</span> <span class=\"o\">**</span><span class=\"n\">hub_kwargs</span><span class=\"p\">,</span> <span class=\"o\">**</span><span class=\"n\">kwargs</span>\n<span class=\"w\">        </span><span class=\"pm\">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>\n<span class=\"w\">    </span><span class=\"p\">)</span>\n<span class=\"w\">    </span><span class=\"pm\">^</span>\n  File <span class=\"nb\">&quot;/Users/captain-mac/.cache/uv/archive-v0/OKy6OL97fRGS6w9l56TIe/lib/python3.13/site-packages/transformers/modeling_utils.py&quot;</span>, line <span class=\"m\">4118</span>, in <span class=\"n\">from_pretrained</span>\n<span class=\"w\">    </span><span class=\"n\">checkpoint_files</span><span class=\"p\">,</span> <span class=\"n\">sharded_metadata</span> <span class=\"o\">=</span> <span class=\"n\">_get_resolved_checkpoint_files</span><span class=\"p\">(</span>\n<span class=\"w\">                                         </span><span class=\"pm\">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^</span>\n<span class=\"w\">    </span>    <span class=\"n\">pretrained_model_name_or_path</span><span class=\"o\">=</span><span class=\"n\">pretrained_model_name_or_path</span><span class=\"p\">,</span>\n<span class=\"w\">        </span><span class=\"pm\">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>\n<span class=\"w\">    </span><span class=\"o\">...&lt;</span><span class=\"mi\">7</span> <span class=\"n\">lines</span><span class=\"o\">&gt;...</span>\n<span class=\"w\">    </span>    <span class=\"n\">tqdm_class</span><span class=\"o\">=</span><span class=\"n\">tqdm_class</span><span class=\"p\">,</span>\n<span class=\"w\">        </span><span class=\"pm\">^^^^^^^^^^^^^^^^^^^^^^</span>\n<span class=\"w\">    </span><span class=\"p\">)</span>\n<span class=\"w\">    </span><span class=\"pm\">^</span>\n  File <span class=\"nb\">&quot;/Users/captain-mac/.cache/uv/archive-v0/OKy6OL97fRGS6w9l56TIe/lib/python3.13/site-packages/transformers/modeling_utils.py&quot;</span>, line <span class=\"m\">779</span>, in <span class=\"n\">_get_resolved_checkpoint_files</span>\n<span class=\"w\">    </span><span class=\"n\">checkpoint_files</span><span class=\"p\">,</span> <span class=\"n\">sharded_metadata</span> <span class=\"o\">=</span> <span class=\"n\">get_checkpoint_shard_files</span><span class=\"p\">(</span>\n<span class=\"w\">                                         </span><span class=\"pm\">~~~~~~~~~~~~~~~~~~~~~~~~~~^</span>\n<span class=\"w\">    </span>    <span class=\"n\">pretrained_model_name_or_path</span><span class=\"p\">,</span>\n<span class=\"w\">        </span><span class=\"pm\">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>\n<span class=\"w\">    </span><span class=\"o\">...&lt;</span><span class=\"mi\">10</span> <span class=\"n\">lines</span><span class=\"o\">&gt;...</span>\n<span class=\"w\">    </span>    <span class=\"n\">tqdm_class</span><span class=\"o\">=</span><span class=\"n\">tqdm_class</span><span class=\"p\">,</span>\n<span class=\"w\">        </span><span class=\"pm\">^^^^^^^^^^^^^^^^^^^^^^</span>\n<span class=\"w\">    </span><span class=\"p\">)</span>\n<span class=\"w\">    </span><span class=\"pm\">^</span>\n  File <span class=\"nb\">&quot;/Users/captain-mac/.cache/uv/archive-v0/OKy6OL97fRGS6w9l56TIe/lib/python3.13/site-packages/transformers/utils/hub.py&quot;</span>, line <span class=\"m\">879</span>, in <span class=\"n\">get_checkpoint_shard_files</span>\n<span class=\"w\">    </span><span class=\"n\">cached_filenames</span> <span class=\"o\">=</span> <span class=\"n\">cached_files</span><span class=\"p\">(</span>\n<span class=\"w\">    </span>    <span class=\"n\">pretrained_model_name_or_path</span><span class=\"p\">,</span>\n<span class=\"w\">    </span><span class=\"o\">...&lt;</span><span class=\"mi\">10</span> <span class=\"n\">lines</span><span class=\"o\">&gt;...</span>\n<span class=\"w\">    </span>    <span class=\"n\">tqdm_class</span><span class=\"o\">=</span><span class=\"n\">tqdm_class</span><span class=\"p\">,</span>\n<span class=\"w\">    </span><span class=\"p\">)</span>\n  File <span class=\"nb\">&quot;/Users/captain-mac/.cache/uv/archive-v0/OKy6OL97fRGS6w9l56TIe/lib/python3.13/site-packages/transformers/utils/hub.py&quot;</span>, line <span class=\"m\">437</span>, in <span class=\"n\">cached_files</span>\n<span class=\"w\">    </span><span class=\"n\">snapshot_download</span><span class=\"p\">(</span>\n<span class=\"w\">    </span><span class=\"pm\">~~~~~~~~~~~~~~~~~^</span>\n<span class=\"w\">    </span>    <span class=\"n\">path_or_repo_id</span><span class=\"p\">,</span>\n<span class=\"w\">        </span><span class=\"pm\">^^^^^^^^^^^^^^^^</span>\n<span class=\"w\">    </span><span class=\"o\">...&lt;</span><span class=\"mi\">9</span> <span class=\"n\">lines</span><span class=\"o\">&gt;...</span>\n<span class=\"w\">    </span>    <span class=\"n\">tqdm_class</span><span class=\"o\">=</span><span class=\"n\">tqdm_class</span><span class=\"p\">,</span>\n<span class=\"w\">        </span><span class=\"pm\">^^^^^^^^^^^^^^^^^^^^^^</span>\n<span class=\"w\">    </span><span class=\"p\">)</span>\n<span class=\"w\">    </span><span class=\"pm\">^</span>\n  File <span class=\"nb\">&quot;/Users/captain-mac/.cache/uv/archive-v0/OKy6OL97fRGS6w9l56TIe/lib/python3.13/site-packages/huggingface_hub/utils/_validators.py&quot;</span>, line <span class=\"m\">88</span>, in <span class=\"n\">_inner_fn</span>\n<span class=\"w\">    </span><span class=\"k\">return</span> <span class=\"n\">fn</span><span class=\"p\">(</span><span class=\"o\">*</span><span class=\"n\">args</span><span class=\"p\">,</span> <span class=\"o\">**</span><span class=\"n\">kwargs</span><span class=\"p\">)</span>\n  File <span class=\"nb\">&quot;/Users/captain-mac/.cache/uv/archive-v0/OKy6OL97fRGS6w9l56TIe/lib/python3.13/site-packages/huggingface_hub/_snapshot_download.py&quot;</span>, line <span class=\"m\">455</span>, in <span class=\"n\">snapshot_download</span>\n<span class=\"w\">    </span><span class=\"n\">thread_map</span><span class=\"p\">(</span>\n<span class=\"w\">    </span><span class=\"pm\">~~~~~~~~~~^</span>\n<span class=\"w\">    </span>    <span class=\"n\">_inner_hf_hub_download</span><span class=\"p\">,</span>\n<span class=\"w\">        </span><span class=\"pm\">^^^^^^^^^^^^^^^^^^^^^^^</span>\n<span class=\"w\">    </span><span class=\"o\">...&lt;</span><span class=\"mi\">3</span> <span class=\"n\">lines</span><span class=\"o\">&gt;...</span>\n<span class=\"w\">    </span>    <span class=\"n\">tqdm_class</span><span class=\"o\">=</span><span class=\"n\">tqdm_class</span><span class=\"p\">,</span>\n<span class=\"w\">        </span><span class=\"pm\">^^^^^^^^^^^^^^^^^^^^^^</span>\n<span class=\"w\">    </span><span class=\"p\">)</span>\n<span class=\"w\">    </span><span class=\"pm\">^</span>\n  File <span class=\"nb\">&quot;/Users/captain-mac/.cache/uv/archive-v0/OKy6OL97fRGS6w9l56TIe/lib/python3.13/site-packages/tqdm/contrib/concurrent.py&quot;</span>, line <span class=\"m\">69</span>, in <span class=\"n\">thread_map</span>\n<span class=\"w\">    </span><span class=\"k\">return</span> <span class=\"n\">_executor_map</span><span class=\"p\">(</span><span class=\"n\">ThreadPoolExecutor</span><span class=\"p\">,</span> <span class=\"n\">fn</span><span class=\"p\">,</span> <span class=\"o\">*</span><span class=\"n\">iterables</span><span class=\"p\">,</span> <span class=\"o\">**</span><span class=\"n\">tqdm_kwargs</span><span class=\"p\">)</span>\n  File <span class=\"nb\">&quot;/Users/captain-mac/.cache/uv/archive-v0/OKy6OL97fRGS6w9l56TIe/lib/python3.13/site-packages/tqdm/contrib/concurrent.py&quot;</span>, line <span class=\"m\">51</span>, in <span class=\"n\">_executor_map</span>\n<span class=\"w\">    </span><span class=\"k\">return</span> <span class=\"nb\">list</span><span class=\"p\">(</span><span class=\"n\">tqdm_class</span><span class=\"p\">(</span><span class=\"n\">ex</span><span class=\"o\">.</span><span class=\"n\">map</span><span class=\"p\">(</span><span class=\"n\">fn</span><span class=\"p\">,</span> <span class=\"o\">*</span><span class=\"n\">iterables</span><span class=\"p\">,</span> <span class=\"n\">chunksize</span><span class=\"o\">=</span><span class=\"n\">chunksize</span><span class=\"p\">),</span> <span class=\"o\">**</span><span class=\"n\">kwargs</span><span class=\"p\">))</span>\n  File <span class=\"nb\">&quot;/Users/captain-mac/.cache/uv/archive-v0/OKy6OL97fRGS6w9l56TIe/lib/python3.13/site-packages/tqdm/std.py&quot;</span>, line <span class=\"m\">1181</span>, in <span class=\"n\">__iter__</span>\n<span class=\"w\">    </span><span class=\"k\">for</span> <span class=\"n\">obj</span> <span class=\"ow\">in</span> <span class=\"n\">iterable</span><span class=\"p\">:</span>\n<span class=\"w\">               </span><span class=\"pm\">^^^^^^^^</span>\n  File <span class=\"nb\">&quot;/Users/captain-mac/.local/share/uv/python/cpython-3.13.11-macos-aarch64-none/lib/python3.13/concurrent/futures/_base.py&quot;</span>, line <span class=\"m\">619</span>, in <span class=\"n\">result_iterator</span>\n<span class=\"w\">    </span><span class=\"k\">yield</span> <span class=\"n\">_result_or_cancel</span><span class=\"p\">(</span><span class=\"n\">fs</span><span class=\"o\">.</span><span class=\"n\">pop</span><span class=\"p\">())</span>\n<span class=\"w\">          </span><span class=\"pm\">~~~~~~~~~~~~~~~~~^^^^^^^^^^</span>\n  File <span class=\"nb\">&quot;/Users/captain-mac/.local/share/uv/python/cpython-3.13.11-macos-aarch64-none/lib/python3.13/concurrent/futures/_base.py&quot;</span>, line <span class=\"m\">317</span>, in <span class=\"n\">_result_or_cancel</span>\n<span class=\"w\">    </span><span class=\"k\">return</span> <span class=\"n\">fut</span><span class=\"o\">.</span><span class=\"n\">result</span><span class=\"p\">(</span><span class=\"n\">timeout</span><span class=\"p\">)</span>\n<span class=\"w\">           </span><span class=\"pm\">~~~~~~~~~~^^^^^^^^^</span>\n  File <span class=\"nb\">&quot;/Users/captain-mac/.local/share/uv/python/cpython-3.13.11-macos-aarch64-none/lib/python3.13/concurrent/futures/_base.py&quot;</span>, line <span class=\"m\">451</span>, in <span class=\"n\">result</span>\n<span class=\"w\">    </span><span class=\"bp\">self</span><span class=\"o\">.</span><span class=\"n\">_condition</span><span class=\"o\">.</span><span class=\"n\">wait</span><span class=\"p\">(</span><span class=\"n\">timeout</span><span class=\"p\">)</span>\n<span class=\"w\">    </span><span class=\"pm\">~~~~~~~~~~~~~~~~~~~~^^^^^^^^^</span>\n  File <span class=\"nb\">&quot;/Users/captain-mac/.local/share/uv/python/cpython-3.13.11-macos-aarch64-none/lib/python3.13/threading.py&quot;</span>, line <span class=\"m\">359</span>, in <span class=\"n\">wait</span>\n<span class=\"w\">    </span><span class=\"n\">waiter</span><span class=\"o\">.</span><span class=\"n\">acquire</span><span class=\"p\">()</span>\n<span class=\"w\">    </span><span class=\"pm\">~~~~~~~~~~~~~~^^</span>\n  File <span class=\"nb\">&quot;/Users/captain-mac/.cache/uv/archive-v0/OKy6OL97fRGS6w9l56TIe/lib/python3.13/site-packages/marimo/_runtime/handlers.py&quot;</span>, line <span class=\"m\">51</span>, in <span class=\"n\">interrupt_handler</span>\n<span class=\"w\">    </span><span class=\"k\">raise</span> <span class=\"n\">MarimoInterrupt</span>\n<span class=\"gr\">KeyboardInterrupt</span>\n</pre></div>\n</span>",
-          "mimetype": "application/vnd.marimo+traceback"
-        }
-      ]
-    },
-    {
       "id": "ZHCJ",
-      "code_hash": "989f5c518bd3df934ff4a972a7ede1c1",
+      "code_hash": "b6f93b3579376dffe29771d8871cc7d7",
       "outputs": [
         {
-          "type": "error",
-          "ename": "interruption",
-          "evalue": "This cell was interrupted and needs to be re-run",
-          "traceback": []
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
         }
       ],
       "console": []
     },
     {
       "id": "ROlb",
+      "code_hash": "9e0a620c9374f7d91b473c9af48a7638",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stderr",
+          "text": "\rLoading weights:   0%|                                               | 0/1951 [00:00<?, ?it/s]\rLoading weights:  48%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2589                  | 944/1951 [00:00<00:00, 9436.81it/s]\rLoading weights:  97%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2589 | 1888/1951 [00:00<00:00, 8945.19it/s]\rLoading weights: 100%|\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2588| 1951/1951 [00:00<00:00, 9126.68it/s]\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "qnkX",
       "code_hash": "0c8824d9f536a2bb06cbbbd243409eae",
       "outputs": [
         {
-          "type": "error",
-          "ename": "exception",
-          "evalue": "An ancestor raised an exception (KeyboardInterrupt): ",
-          "traceback": null
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
         }
       ],
       "console": []
     },
     {
-      "id": "qnkX",
+      "id": "TqIu",
       "code_hash": "8f258c1ae983a7f0ce77adbd59cf4c24",
       "outputs": [
         {
-          "type": "error",
-          "ename": "exception",
-          "evalue": "An ancestor raised an exception (KeyboardInterrupt): ",
-          "traceback": null
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
         }
       ],
       "console": []

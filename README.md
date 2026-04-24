@@ -44,3 +44,5 @@ uv run marimo edit language_models_are_injective_demo.py
 - LLMs are not "lossy" as previously assumed
 - Hidden states are lossless encodings of inputs
 - Foundation for provable interpretability
+
+![thumbnail](./thumbnail.png)
